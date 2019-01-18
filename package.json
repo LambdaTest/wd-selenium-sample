@@ -1,0 +1,33 @@
+{
+  "name": "wd-lambdatest-sample",
+  "version": "0.1.0",
+  "readme": "WD Integration with [lambdatest](https://www.lambdatest.com)",
+  "description": "Selenium examples for WD and lambdatest Automate",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lambdatest/wd-lambdatest-sample.git"
+  },
+  "keywords": [
+    "wd",
+    "lambdatest",
+    "wd-lambdatest-sample",
+    "webdriver",
+    "selenium"
+  ],
+  "author": "lambdatest",
+  "bugs": {
+    "url": "https://github.com/lambdatest/wd-lambdatest-sample/issues"
+  },
+  "homepage": "https://github.com/lambdatest/wd-lambdatest-sample#readme",
+  "scripts": {
+    "test": "npm run single && npm run parallel",
+    "single": "node scripts/lambdatest.js ../conf/single.conf.js",
+    "parallel": "node scripts/lambdatest.js ../conf/parallel.conf.js"
+  },
+  "dependencies": {
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.2.0",
+    "colors": "^1.1.2",
+    "wd": "^1.11.1"
+  }
+}
