@@ -15,16 +15,16 @@ exports.config = {
 
   capabilities: [{
     browserName: 'chrome',
-    platform: 'win10',
-    version: '67',
+    platform: 'Windows 10',
+    version: 'latest',
   },{
     browserName: 'firefox',
-    platform: 'win10',
-    version: '60',
+    platform: 'Windows 10',
+    version: 'latest',
   },{
     browserName: 'safari',
     platform: 'macos 10.13',
-    version: '11',
+    version: 'latest',
   }]
 }
 

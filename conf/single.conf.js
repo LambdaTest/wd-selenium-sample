@@ -10,8 +10,8 @@ exports.config = {
 
   capabilities: [{
     browserName: 'chrome',
-    platform: 'win10',
-    version: '67',
+    platform: 'Windows 10',
+    version: 'latest',
     name: "single-test",
     build: "wd-lambdatest-sample"
   }]
