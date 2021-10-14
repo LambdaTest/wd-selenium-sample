@@ -18,13 +18,13 @@ exports.config = {
     platform: 'Windows 10',
     version: 'latest',
   },{
-    browserName: 'firefox',
+    browserName: 'chrome',
     platform: 'Windows 10',
-    version: 'latest',
+    version: 'latest-1',
   },{
-    browserName: 'safari',
-    platform: 'macos 10.13',
-    version: 'latest',
+    browserName: 'chrome',
+    platform: 'Windows 10',
+    version: 'latest-2',
   }]
 }
 

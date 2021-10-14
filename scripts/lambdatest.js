@@ -1,36 +1,36 @@
 var chai = require("chai"),
-    chaiAsPromised = require("chai-as-promised"),
-    wd = require('wd'),
-    colors = require('colors'),
-    child_process = require('child_process')
+  chaiAsPromised = require("chai-as-promised"),
+  wd = require('wd'),
+  colors = require('colors'),
+  child_process = require('child_process')
 
 chai.use(chaiAsPromised);
 chai.should();
 chaiAsPromised.transferPromiseness = wd.transferPromiseness;
 
 wd.addPromiseChainMethod(
-  'onQuit', function(done) {
-    if(done) done();
+  'onQuit', function (done) {
+    if (done) done();
     return this;
   }
 );
 
-function runOnlambdatest(caps, test, done){
+function runOnlambdatest(caps, test, done) {
   console.log("Starting Test: " + test.name.green + '\n');
   var browser = wd.promiseChainRemote(config.seleniumHost, config.seleniumPort, username, accessKey);
 
   // optional extra logging
-  browser.on('status', function(info) {
+  browser.on('status', function (info) {
     console.log(info.cyan);
   });
-  browser.on('command', function(eventType, command, response) {
+  browser.on('command', function (eventType, command, response) {
     console.log(' > ' + eventType.green, command, (response || '').grey);
   });
-  browser.on('http', function(meth, path, data) {
+  browser.on('http', function (meth, path, data) {
     console.log(' > ' + meth.yellow, path, (data || '').grey);
   });
 
-  test.run(browser.init(caps)).fin(function() { return browser.quit(); }).onQuit(done).done();
+  test.run(browser.init(caps)).fin(function () { return browser.quit(); }).onQuit(done).done();
 }
 
 var config_file = process.argv[2] || 'conf.js'
@@ -40,10 +40,10 @@ var test = require(config.test);
 var username = process.env.LT_USERNAME || config.user;
 var accessKey = process.env.LT_ACCESS_KEY || config.key;
 
-for(var i in config.capabilities){
+for (var i in config.capabilities) {
   var caps = config.capabilities[i];
-  if(caps["tunnel"]){
-    console.log("Connecting local");
+  if (caps["tunnel"]) {
+    //start tunnel
   }
   else {
     runOnlambdatest(caps, test);
