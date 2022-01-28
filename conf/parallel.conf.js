@@ -17,14 +17,17 @@ exports.config = {
     browserName: 'chrome',
     platform: 'Windows 10',
     version: 'latest',
+    geoLocation : "US"
   },{
     browserName: 'chrome',
     platform: 'Windows 10',
     version: 'latest-1',
+    geoLocation : "US"
   },{
     browserName: 'chrome',
     platform: 'Windows 10',
     version: 'latest-2',
+    geoLocation : "US"
   }]
 }
 

@@ -13,6 +13,7 @@ exports.config = {
     platform: 'Windows 10',
     version: 'latest',
     name: "single-test",
-    build: "wd-lambdatest-sample"
+    build: "wd-lambdatest-sample",
+    geoLocation : "US"
   }]
 }

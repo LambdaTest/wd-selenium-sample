@@ -4,7 +4,7 @@ module.exports = {
     return browser
       .get("https://www.google.com/ncr")
       .elementByName('q')
-      .sendKeys('lambdatest\n')
+      .sendKeys('Lambdatest\n')
       .sleep(5000)
       .title()
         .should.become('lambdatest - Google Search');
