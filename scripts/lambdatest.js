@@ -15,7 +15,7 @@ wd.addPromiseChainMethod(
   }
 );
 
-function runOnlambdatest(caps, test, done) {
+async function runOnlambdatest(caps, test, done) {
   console.log("Starting Test: " + test.name.green + '\n');
   var browser = wd.promiseChainRemote(config.seleniumHost, config.seleniumPort, username, accessKey);
 
@@ -30,7 +30,8 @@ function runOnlambdatest(caps, test, done) {
     console.log(' > ' + meth.yellow, path, (data || '').grey);
   });
 
-  test.run(browser.init(caps)).fin(function () { return browser.quit(); }).onQuit(done).done();
+  await test.run(browser.init(caps))
+  return browser.quit();
 }
 
 var config_file = process.argv[2] || 'conf.js'

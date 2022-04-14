@@ -1,20 +1,15 @@
 module.exports = {
   name: 'Wd-selenium-sample Todo Test',
-  run : function (browser) {
-    return browser
-      .get("https://lambdatest.github.io/sample-todo-app/").then(function(){
-        browser.elementById('li1').clickElement().then(function(){
-            console.log("Successfully clicked first list item.");
-        });
-        browser.elementById('li2').clickElement().then(function(){
-            console.log("Successfully clicked second list item.");
-          });
-
-          browser.elementById('sampletodotext').sendKeys('Complete Lambdatest Tutorial\n').then(function(){
-            browser.elementById('addbutton').clickElement().then(function(){
-                  console.log("Successfully added a new task.");
-              });
-          });
-      });
+  run : async function (browser) {
+    await browser.get("https://lambdatest.github.io/sample-todo-app/")
+    let li1 = await browser.elementByName('li1')
+    await browser.clickElement(li1)
+    console.log("Successfully clicked first list item.")
+    let li2 = await browser.elementByName('li2')
+    await browser.clickElement(li2)
+    console.log("Successfully clicked second list item.");
+    let textElem = await browser.elementById('sampletodotext')
+    await textElem.sendKeys('Complete Lambdatest Tutorial\n')
+    console.log("Successfully added a new task.")
   }
 };
