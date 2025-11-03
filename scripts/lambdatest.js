@@ -1,52 +1,51 @@
-var chai = require("chai"),
-  chaiAsPromised = require("chai-as-promised"),
-  wd = require('wd'),
-  colors = require('colors'),
-  child_process = require('child_process')
+import * as chai from "chai";
+import chaiAsPromised from "chai-as-promised"; // ✅ default export
+import wd from "wd";
+import colors from "colors";
+import configModule from "../conf/single.conf.js"; // ✅ adjust if needed
 
+const { config } = configModule;
+
+// --- Chai setup ---
 chai.use(chaiAsPromised);
 chai.should();
 chaiAsPromised.transferPromiseness = wd.transferPromiseness;
 
-wd.addPromiseChainMethod(
-  'onQuit', function (done) {
-    if (done) done();
-    return this;
-  }
-);
+// --- Add custom wd chain method ---
+wd.addPromiseChainMethod("onQuit", function (done) {
+  if (done) done();
+  return this;
+});
 
-async function runOnlambdatest(caps, test, done) {
-  console.log("Starting Test: " + test.name.green + '\n');
-  var browser = wd.promiseChainRemote(config.seleniumHost, config.seleniumPort, username, accessKey);
+async function runOnLambdaTest(caps, test) {
+  console.log(`Starting Test: ${test.name.green}\n`);
 
-  // optional extra logging
-  browser.on('status', function (info) {
-    console.log(info.cyan);
-  });
-  browser.on('command', function (eventType, command, response) {
-    console.log(' > ' + eventType.green, command, (response || '').grey);
-  });
-  browser.on('http', function (meth, path, data) {
-    console.log(' > ' + meth.yellow, path, (data || '').grey);
-  });
+  const username = process.env.LT_USERNAME || config.user;
+  const accessKey = process.env.LT_ACCESS_KEY || config.key;
 
-  await test.run(browser.init(caps))
-  return browser.quit();
+  const browser = wd.promiseChainRemote(
+    config.seleniumHost,
+    config.seleniumPort,
+    username,
+    accessKey
+  );
+
+  browser.on("status", info => console.log(info.cyan));
+  browser.on("command", (eventType, command, response) =>
+    console.log(" >", eventType.green, command, (response || "").grey)
+  );
+  browser.on("http", (meth, path, data) =>
+    console.log(" >", meth.yellow, path, (data || "").grey)
+  );
+
+  await test.run(browser.init(caps));
+  await browser.quit();
 }
 
-var config_file = process.argv[2] || 'conf.js'
-var config = require(config_file).config;
-var test = require(config.test);
+// --- Load and execute test ---
+const testModule = await import(config.test);
+const test = testModule.default || testModule; // ✅ handles both default and named exports
 
-var username = process.env.LT_USERNAME || config.user;
-var accessKey = process.env.LT_ACCESS_KEY || config.key;
-
-for (var i in config.capabilities) {
-  var caps = config.capabilities[i];
-  if (caps["tunnel"]) {
-    //start tunnel
-  }
-  else {
-    runOnlambdatest(caps, test);
-  }
+for (const caps of config.capabilities) {
+  await runOnLambdaTest(caps, test);
 }
