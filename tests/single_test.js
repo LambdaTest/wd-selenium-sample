@@ -1,7 +1,7 @@
 module.exports = {
   name: 'Wd-selenium-sample Todo Test',
   run : async function (browser) {
-    await browser.get("https://lambdatest.github.io/sample-todo-app/")
+    await browser.get("https://www.testmuai.com/selenium-playground/todo-app/")
     let li1 = await browser.elementByName('li1')
     await browser.clickElement(li1)
     console.log("Successfully clicked first list item.")
