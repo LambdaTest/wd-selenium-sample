@@ -1,5 +1,7 @@
 # Run Selenium Tests with WD.js on TestMu AI (Formerly LambdaTest)
 
+> Automated End-to-End (E2E) testing of web apps with Selenium and the wd library across real browsers and operating systems on TestMu AI.
+
 <p align="center">
   <a href="https://www.testmuai.com/"><img src="https://img.shields.io/badge/MADE%20BY%20TestMu%20AI-000000.svg?style=for-the-badge&labelColor=000" alt="Made by TestMu AI"></a>
   <a href="https://www.npmjs.com/package/wd"><img src="https://img.shields.io/npm/v/wd.svg?style=for-the-badge&labelColor=000000" alt="WD version"></a>
